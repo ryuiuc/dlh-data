@@ -18,7 +18,7 @@ The primary goal of this repository is to replicate the data preprocessing and a
 ### Customization: Implement customized data preprocessing methods as specified in the DuETT paper, tailored specifically for ICU mortality prediction task.
 
 ## Source
-This work is based on an upgraded data processing pipeline initially created for MIMIC-IV 1.0, available at vincenzorusso12/mimic4-benchmarks. Our adaptations further refine these processes to align with the specific analyses and methodologies outlined in the DuETT paper.
+This work is based on an upgraded data processing pipeline initially created for MIMIC-IV 1.0, available at https://github.com/vincenzorusso12/mimic4-benchmarks. Our adaptations further refine these processes to align with the specific analyses and methodologies outlined in the DuETT paper.
 
 ## Limitations
 Currently, this repository is focused exclusively on the end-to-end data pipeline for ICU mortality. Future updates may expand to cover additional metrics and outcomes based on further analyses and community contributions.
