@@ -3,7 +3,9 @@ MIMIC-IV 2.0 Data Processing for DuETT Paper
 This repository contains the data processing modules developed for replicating the DuETT paper's methodologies using the MIMIC-IV 2.0 dataset. The DuETT paper's analysis is focused on the intensive care unit (ICU) mortality predictions.
 
 DuETT: Dual Event Time Transformer for Electronic Health Records
+
 DuETT Github: https://github.com/layer6ai-labs/duett
+
 DuETT Paper: https://www.cs.toronto.edu/~mvolkovs/MLH2023_DuETT.pdf https://arxiv.org/abs/2304.13017
 
 ## Overview
