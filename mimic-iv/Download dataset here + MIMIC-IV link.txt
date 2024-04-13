@@ -1,6 +1,20 @@
-https://physionet.org/content/mimiciv/1.0/
+https://physionet.org/content/mimiciv/2.0/
 
-convert tables name to uppercase e.g:
+convert tables name to uppercase e.g: (a simple shell script provided below)
 ADMISSIONS.CSV
 CHARTEVENTS.CSV
 ...
+
+as 2.0 datasets split into two different subcategories(hosp/ and icu/), please put all files under hosp/. 
+
+
+Below are what the data folder should be like:
+$ ls
+ADMISSIONS.csv      DIAGNOSES_ICD.csv  D_ICD_DIAGNOSES.csv   D_LABITEMS.csv   HCPCSEVENTS.csv       INPUTEVENTS.csv         OMR.csv           PHARMACY.csv    PRESCRIPTIONS.csv    SERVICES.csv   u.sh
+CHARTEVENTS.csv     DRGCODES.csv       D_ICD_PROCEDURES.csv  EMAR.csv         ICUSTAYS.csv          LABEVENTS.csv           OUTPUTEVENTS.csv  POE.csv         PROCEDUREEVENTS.csv  TRANSFERS.csv
+DATETIMEEVENTS.csv  D_HCPCS.csv        D_ITEMS.csv           EMAR_DETAIL.csv  INGREDIENTEVENTS.csv  MICROBIOLOGYEVENTS.csv  PATIENTS.csv      POE_DETAIL.csv  PROCEDURES_ICD.csv   index.html
+
+$ cat u.sh 
+for file in *.csv; do
+    mv "$file" "$(echo ${file%.*} | tr '[:lower:]' '[:upper:]').csv"
+done
