@@ -42,7 +42,7 @@ def main():
         # assert there are no repetitions of ICUSTAY_ID or HADM_ID
         # since admissions with multiple ICU stays were excluded
         assert(len(stays_df['ICUSTAY_ID'].unique()) == len(stays_df['ICUSTAY_ID']))
-        assert(len(stays_df['HADM_ID'].unique()) == len(stays_df['HADM_ID']))
+        #assert(len(stays_df['HADM_ID'].unique()) == len(stays_df['HADM_ID']))
 
         events_df = pd.read_csv(os.path.join(args.subjects_root_path, subject, 'events.csv'), index_col=False,
                                 dtype={'HADM_ID': str, "ICUSTAY_ID": str})

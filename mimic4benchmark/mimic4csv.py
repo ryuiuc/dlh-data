@@ -21,10 +21,11 @@ def read_patients_table(mimic4_path):
 
 def read_admissions_table(mimic4_path):
     admits = dataframe_from_csv(os.path.join(mimic4_path, 'ADMISSIONS.csv'))
-    admits = admits[['SUBJECT_ID', 'HADM_ID', 'ADMITTIME', 'DISCHTIME', 'DEATHTIME', 'ETHNICITY']]
+    admits = admits[['SUBJECT_ID', 'HADM_ID', 'ADMITTIME', 'DISCHTIME', 'DEATHTIME', 'RACE', 'LANGUAGE', 'MARITAL_STATUS', 'INSURANCE', 'ADMISSION_LOCATION', 'ADMISSION_TYPE']]
     admits.ADMITTIME = pd.to_datetime(admits.ADMITTIME)
     admits.DISCHTIME = pd.to_datetime(admits.DISCHTIME)
     admits.DEATHTIME = pd.to_datetime(admits.DEATHTIME)
+    admits.LANGUAGE = admits.LANGUAGE == 'ENGLISH'
     return admits
 
 
@@ -37,7 +38,7 @@ def read_icustays_table(mimic4_path):
 
 def read_icd_diagnoses_table(mimic4_path):
     codes = dataframe_from_csv(os.path.join(mimic4_path, 'D_ICD_DIAGNOSES.csv'))
-    codes = codes[['ICD9_CODE', 'LONG_TITLE']]
+    codes = codes[['ICD9_CODE', 'LONG_TITLE']] # by runhua yang
     diagnoses = dataframe_from_csv(os.path.join(mimic4_path, 'DIAGNOSES_ICD.csv'))
     diagnoses = diagnoses.merge(codes, how='inner', left_on='ICD9_CODE', right_on='ICD9_CODE')
     diagnoses[['SUBJECT_ID', 'HADM_ID', 'SEQ_NUM']] = diagnoses[['SUBJECT_ID', 'HADM_ID', 'SEQ_NUM']].astype(int)
@@ -46,7 +47,7 @@ def read_icd_diagnoses_table(mimic4_path):
 
 
 def read_events_table_by_row(mimic4_path, table):
-    nb_rows = {'chartevents': 330712484, 'labevents': 27854056, 'outputevents': 4349219}
+    nb_rows = {'chartevents': 329822285, 'labevents': 124342638, 'outputevents': 4450049}
     reader = csv.DictReader(open(os.path.join(mimic4_path, table.upper() + '.csv'), 'r'))
     for i, row in enumerate(reader):
         if 'ICUSTAY_ID' not in row:
@@ -84,6 +85,9 @@ def add_age_to_icustays(stays,patients):
     stays.loc[stays.AGE < 0, 'AGE'] = 90
     return stays
 
+def add_observation_window_length_to_icustays(stays):
+    stays['OBSERVATION_WINDOW_LENGTH'] = (stays['OUTTIME'] - stays['INTIME']).dt.total_seconds() / (60*60)
+    return stays
 
 def add_inhospital_mortality_to_icustays(stays):
     mortality = stays.DOD.notnull() & ((stays.ADMITTIME <= stays.DOD) & (stays.DISCHTIME >= stays.DOD))
@@ -183,7 +187,7 @@ def read_events_table_and_break_up_by_subject(mimic4_path, table, output_path,
         w.writerows(data_stats.curr_obs)
         data_stats.curr_obs = []
 
-    nb_rows_dict = {'chartevents': 330712484, 'labevents': 27854056, 'outputevents': 4349219}
+    nb_rows_dict = {'chartevents': 329822285, 'labevents': 124342638, 'outputevents': 4450049}
     nb_rows = nb_rows_dict[table.lower()]
     
     #print(subjects_to_keep)

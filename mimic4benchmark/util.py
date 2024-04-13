@@ -4,8 +4,8 @@ from __future__ import print_function
 import pandas as pd
 
 
-def dataframe_from_csv(path, header=0, index_col=False):
-    df=pd.read_csv(path, header=header, index_col=index_col)
+def dataframe_from_csv(path, header=0, index_col=False, usecols=None):
+    df=pd.read_csv(path, header=header, index_col=index_col, usecols=usecols)
     df.columns = df.columns.str.upper()
     
     ## devo trasformare STAY_ID in ICUSTAY_ID

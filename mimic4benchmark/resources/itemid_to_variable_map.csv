@@ -252,7 +252,7 @@ Glascow coma scale eye opening,Glascow coma scale eye opening,GCS eye,ready,shou
 Glascow coma scale eye opening,Glascow coma scale eye opening,GCS eye,ready,should we just add these up?,220739,GCS - Eye Opening,,chartevents,571383,Neurological,,,,metavision,,Text,
 Glascow coma scale motor response,Glascow coma scale motor response,GCS motor,ready,should we just add these up?,454,Motor Response,,chartevents,952565,,,,,carevue,,,
 Glascow coma scale motor response,Glascow coma scale motor response,GCS motor,ready,should we just add these up?,223901,GCS - Motor Response,,chartevents,569369,Neurological,,,,metavision,,Text,
-Glascow coma scale total,Glascow coma scale total,GCS total,ready,,198,GCS Total,,chartevents,948148,,,,,carevue,,,
+Glascow coma scale total,Glascow coma scale total,GCS total,removed,,198,GCS Total,,chartevents,948148,,,,,carevue,,,
 Glascow coma scale verbal response,Glascow coma scale verbal response,GCS verbal,ready,should we just add these up?,723,Verbal Response,,chartevents,954700,,,,,carevue,,,
 Glascow coma scale verbal response,Glascow coma scale verbal response,GCS verbal,ready,should we just add these up?,223900,GCS - Verbal Response,,chartevents,569810,Neurological,,,,metavision,,Text,
 Glucose,Glucose,,ready,,50931,GLUCOSE,,labevents,748981,CHEMISTRY,,BLOOD,7/1/2345,,,,

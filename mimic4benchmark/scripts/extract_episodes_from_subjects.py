@@ -9,7 +9,7 @@ from tqdm import tqdm
 from mimic4benchmark.subject import read_stays, read_diagnoses, read_events, get_events_for_stay,\
     add_hours_elpased_to_events
 from mimic4benchmark.subject import convert_events_to_timeseries, get_first_valid_from_timeseries
-from mimic4benchmark.preprocessing import read_itemid_to_variable_map, map_itemids_to_variables, clean_events
+from mimic4benchmark.preprocessing import read_itemid_to_variable_map, map_itemids_to_variables, clean_events, cleanup_for_duett
 from mimic4benchmark.preprocessing import assemble_episodic_data
 
 
@@ -25,6 +25,7 @@ args, _ = parser.parse_known_args()
 
 var_map = read_itemid_to_variable_map(args.variable_map_file)
 variables = var_map.VARIABLE.unique()
+#print(variables)
 
 for subject_dir in tqdm(os.listdir(args.subjects_root_path), desc='Iterating over subjects'):
     dn = os.path.join(args.subjects_root_path, subject_dir)
@@ -73,7 +74,9 @@ for subject_dir in tqdm(os.listdir(args.subjects_root_path), desc='Iterating ove
                                                                               'episode{}.csv'.format(i+1)),
                                                                  index_label='Icustay')
         columns = list(episode.columns)
+        #print(columns)
         columns_sorted = sorted(columns, key=(lambda x: "" if x == "Hours" else x))
         episode = episode[columns_sorted]
+        episode = cleanup_for_duett(episode)
         episode.to_csv(os.path.join(args.subjects_root_path, subject_dir, 'episode{}_timeseries.csv'.format(i+1)),
                        index_label='Hours')
