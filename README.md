@@ -14,8 +14,9 @@ The project builds upon the foundational work by Harutyunyan et al. (2019), whic
 ## Motivation
 The primary goal of this repository is to replicate the data preprocessing and analysis performed in the DuETT paper, but with updates to accommodate the latest version of the MIMIC dataset:
 
-Dataset Upgrade: Transition from MIMIC-III to MIMIC-IV 2.0 to utilize more recent and comprehensive clinical data.
-Customization: Implement customized data preprocessing methods as specified in the DuETT paper, tailored specifically for ICU mortality prediction task.
+### Dataset Upgrade: Transition from MIMIC-III to MIMIC-IV 2.0 to utilize more recent and comprehensive clinical data.
+### Customization: Implement customized data preprocessing methods as specified in the DuETT paper, tailored specifically for ICU mortality prediction task.
+
 ## Source
 This work is based on an upgraded data processing pipeline initially created for MIMIC-IV 1.0, available at vincenzorusso12/mimic4-benchmarks. Our adaptations further refine these processes to align with the specific analyses and methodologies outlined in the DuETT paper.
 
