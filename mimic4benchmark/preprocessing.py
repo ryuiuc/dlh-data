@@ -489,16 +489,44 @@ def clean_height(df):
 # Respiratory rate
 # Mean blood pressure
 clean_fns = {
-    'Capillary refill rate': clean_crr,
-    'Diastolic blood pressure': clean_dbp,
-    'Systolic blood pressure': clean_sbp,
+    #'Capillary refill rate': clean_crr,
+    'Capillary Refill R': clean_crr,
+    'Capillary Refill L': clean_crr,
+    #'Diastolic blood pressure': clean_dbp,
+    'Arterial Blood Pressure diastolic': clean_dbp,
+    'Non Invasive Blood Pressure diastolic': clean_dbp,
+    'Manual Blood Pressure Diastolic Left': clean_dbp,
+    'ART BP Diastolic': clean_dbp,
+    'Manual Blood Pressure Diastolic Right': clean_dbp,
+    #'Systolic blood pressure': clean_sbp,
+    'Arterial Blood Pressure systolic': clean_sbp,
+    'Non Invasive Blood Pressure systolic': clean_sbp,
+    'Manual Blood Pressure Systolic Left': clean_sbp,
+    'ART BP Systolic': clean_sbp,
+    'Manual Blood Pressure Systolic Right': clean_sbp,
     'Fraction inspired oxygen': clean_fio2,
     'Oxygen saturation': clean_o2sat,
-    'Glucose': clean_lab,
-    'pH': clean_lab,
+    'O2 saturation pulseoxymetry': clean_o2sat,
+    #'Glucose': clean_lab,
+    'Glucose (serum)': clean_lab,
+    'Glucose finger stick (range 70-100)': clean_lab,
+    'Glucose (whole blood)': clean_lab,
+    'Glucose (whole blood) (soft)': clean_lab,
+    'GLUCOSE': clean_lab,
+    #'pH': clean_lab,
+    'PH': clean_lab,
+    'PH (Arterial)': clean_lab,
+    'PH (SOFT)': clean_lab,
+    'PH (Venous)': clean_lab,
+    'PH (dipstick)': clean_lab,
     'Temperature': clean_temperature,
+    'Temperature Fahrenheit': clean_temperature,
+    #'Skin Temperature': clean_temperature,
     'Weight': clean_weight,
-    'Height': clean_height
+    'Daily Weight': clean_weight,
+    'Admission Weight (lbs.)': clean_weight,
+    'Height': clean_height,
+    'Height (cm)': clean_height,
 }
 
 def cleanup_for_duett(df):
@@ -556,7 +584,8 @@ def cleanup_for_duett(df):
         "History of falling (within 3 mnths)": {"Yes": 1, "No": 0},
         "IV/Saline lock": {"Yes": 1, "No": 0},
         "Mental status": {"Oriented to own ability": 1, "Forgets limitations": 2},
-        "Secondary diagnosis": {"Yes": 1, "No": 0}
+        "Secondary diagnosis": {"Yes": 1, "No": 0},
+        "Skin Temperature": {"Warm": 1}
     }
 
     # print(df.columns)
