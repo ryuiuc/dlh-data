@@ -333,6 +333,7 @@ def read_itemid_to_variable_map(fn, variable_column='LEVEL2'):
     duplicate_vars = var_map[var_map.duplicated(['VARIABLE'], keep=False)]
     for idx in duplicate_vars.index:
         var_map.at[idx, 'VARIABLE'] = var_map.at[idx, 'MIMIC_LABEL']
+        additional_vars[idx] = var_map.at[idx, 'VARIABLE']  # Store for future use
 
     #set_option('display.max_rows', None)
     #print(var_map)
@@ -397,8 +398,8 @@ def clean_crr(df):
     # raises an exception, to fix this we change dtype to str
     df_value_str = df.VALUE.astype(str)
 
-    v.loc[(df_value_str == 'Normal <3 secs') | (df_value_str == 'Brisk')] = 0
-    v.loc[(df_value_str == 'Abnormal >3 secs') | (df_value_str == 'Delayed')] = 1
+    v.loc[(df_value_str == 'Normal <3 Seconds') | (df_value_str == 'Brisk')] = 0
+    v.loc[(df_value_str == 'Abnormal >3 Seconds') | (df_value_str == 'Delayed')] = 1
     return v
 
 
@@ -468,6 +469,8 @@ def clean_weight(df):
     v.loc[idx] = v[idx] * 0.453592
     return v
 
+def clean_dumb(df):
+    return df.VALUE.copy()
 
 # Height: some really short/tall adults: <2 ft, >7 ft)
 # Children are tough for height, weight
@@ -521,12 +524,16 @@ clean_fns = {
     'PH (dipstick)': clean_lab,
     'Temperature': clean_temperature,
     'Temperature Fahrenheit': clean_temperature,
-    #'Skin Temperature': clean_temperature,
+    'Skin Temperature': clean_dumb,
     'Weight': clean_weight,
     'Daily Weight': clean_weight,
     'Admission Weight (lbs.)': clean_weight,
     'Height': clean_height,
     'Height (cm)': clean_height,
+    'Mean blood pressure': clean_dumb,
+    'Rate': clean_dumb,
+    'Respiratory Rate (Total)': clean_dumb,
+    'Respiratory Rate (spontaneous)': clean_dumb,
 }
 
 def cleanup_for_duett(df):
@@ -578,14 +585,14 @@ def cleanup_for_duett(df):
         "Ambulatory aid": {"None": 0, "Cane": 1, "Crutches": 2, "Walker": 3, "Furniture": 4,
                            "Wheel chair": 5, "Nurse assist": 6, "Bed rest": 7,
                            },
-        "Capillary Refill L": {"Normal <3 Seconds": 1, "Abnormal >3 Seconds": 2},
-        "Capillary Refill R": {"Normal <3 Seconds": 1, "Abnormal >3 Seconds": 2},
+        #"Capillary Refill L": {"Normal <3 Seconds": 1, "Abnormal >3 Seconds": 2},
+        #"Capillary Refill R": {"Normal <3 Seconds": 1, "Abnormal >3 Seconds": 2},
         "Gait/Transferring": {"Normal ": 1, "Impaired": 2, "Weak": 3, "Bed rest": 4, "Immobile": 5},
         "History of falling (within 3 mnths)": {"Yes": 1, "No": 0},
         "IV/Saline lock": {"Yes": 1, "No": 0},
         "Mental status": {"Oriented to own ability": 1, "Forgets limitations": 2},
         "Secondary diagnosis": {"Yes": 1, "No": 0},
-        "Skin Temperature": {"Warm": 1}
+        "Skin Temperature": {"Cool": 1, "Warm": 2, "Hot": 3}
     }
 
     # print(df.columns)
