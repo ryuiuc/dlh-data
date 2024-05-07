@@ -56,6 +56,12 @@ After the above commands are done, there will be a directory `data/{task}` for i
 These directories have two sub-directories: `train` and `test`.
 Each of them contains bunch of ICU stays and one file with name `listfile.csv`, which lists all samples in that particular set.
 
+NOTE: To reproduce the DuETT results, use below to make sure deterministic results:
+- `resources/testset.csv` is derived from `resources/mimic-iv-patient-split.json` of the DuETT paper.
+- `resources/train-listfile.csv` is the train data split corresponding to `data/in-hospital-mortality/train/listfile.csv`.
+- `resources/test-listfile.csv` is the test data split corresponding to `data/in-hospital-mortality/test/listfile.csv`.
+
+
 ## Readers
 Ignore. Not used.
 
@@ -66,8 +72,5 @@ Ignore. Not used.
 
 ## Other Models
 Ignore. Not used.
-
-
-
 
 
